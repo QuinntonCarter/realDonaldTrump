@@ -25,6 +25,7 @@ function App() {
       const data = await fetch(
         'https://api.whatdoestrumpthink.com/api/v1/quotes'
       );
+      // make mappable *
       const toJSON = await data.json();
       setQuotes(toJSON);
       return true;
@@ -86,7 +87,9 @@ function App() {
           </Box>
           <SimpleGrid>
             {/* map info to tweet component(s) */}
-            <Tweet quotes />
+            <Tweet
+              textContent={quotes?.messages && quotes.messages.non_personalized}
+            />
           </SimpleGrid>
         </VStack>
         <VStack>
