@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ChakraProvider,
   Box,
@@ -19,71 +19,83 @@ import Tweet from './components/Tweet';
 import { FaTwitter } from 'react-icons/fa';
 
 function App() {
+  const [quotes, setQuotes] = useState();
+  async function getData() {
+    try {
+      const data = await fetch(
+        'https://api.whatdoestrumpthink.com/api/v1/quotes'
+      );
+      const toJSON = await data.json();
+      setQuotes(toJSON);
+      return true;
+    } catch {
+      return false;
+    }
+  }
+  useEffect(() => {
+    getData();
+    return () => {
+      // second
+    };
+  }, []);
   return (
     <ChakraProvider theme={theme}>
       <HStack>
         {/* maybe vstack (?) */}
-        <Box>
+        <VStack>
           {' '}
           {/* twitter icon */}
-          <Icon as={FaTwitter} color={'#D7D9DB'} />
+          <Icon as={FaTwitter} color={'#D7D9DB'} size={'14px'} />
           {/* tweet button */}
           <Button
             bgColor={'#1C9CF0'}
+            color={'white'}
             _hover={{ backgroundColor: 'rgb(26, 140, 216)' }}
           >
             {' '}
             Tweet{' '}
           </Button>
-        </Box>
+        </VStack>
         {/* BG image banner image(?) */}
         <VStack>
-          {/* avatar image */}
-          <Image />
-          {/* twitter name */}
-          {/* twitter handle */}
-          {/* twitter bio */}
-          {/* flex horizontal bar of: */}
-          {/*  */}
-          {/* pin icon + location */}
-          {/* link to website (maybe API sites) */}
-          {/* join date */}
-          {/*  */}
-          {/* grid horizontal bar */}
-          {/* following count */}
-          {/* follower count */}
-          {/*  */}
-          {/* grid horizontal bar */}
-          {/* tweets */}
-          {/* media: links to meme/stupid videos */}
-          {/* likes: @thedonaldtrump hasn't liked any tweets [subtext: when they do, those tweets will show up here] */}
-          {/*  */}
+          <Box
+            bgImage={
+              'https://pbs.twimg.com/profile_banners/25073877/1604214583/1500x500'
+            }
+          >
+            {/* avatar image */}
+            <Image src="https://pbs.twimg.com/profile_images/874276197357596672/kUuht00m_400x400.jpg" />
+            {/* twitter name */}
+            {/* twitter handle */}
+            {/* twitter bio */}
+            {/* flex horizontal bar of: */}
+            {/*  */}
+            {/* pin icon + location */}
+            {/* link to website (maybe API sites) */}
+            {/* join date */}
+            {/*  */}
+            {/* grid horizontal bar */}
+            {/* following count */}
+            {/* follower count */}
+            {/*  */}
+            {/* grid horizontal bar */}
+            {/* tweets */}
+            {/* media: links to meme/stupid videos */}
+            {/* likes: @thedonaldtrump hasn't liked any tweets [subtext: when they do, those tweets will show up here] */}
+            {/*  */}
+          </Box>
           <SimpleGrid>
             {/* map info to tweet component(s) */}
-            <Tweet />
+            <Tweet quotes />
+          </SimpleGrid>
+        </VStack>
+        <VStack>
+          <SimpleGrid>
+            {/* clickable image viewer; populate with funny iamges */}
           </SimpleGrid>
         </VStack>
       </HStack>
-      {/* <Box textAlign="center" fontSize="xl">
-        <Grid minH="100vh" p={3}>
-          <ColorModeSwitcher justifySelf="flex-end" />
-          <VStack spacing={8}>
-            <Logo h="40vmin" pointerEvents="none" />
-            <Text>
-              Edit <Code fontSize="xl">src/App.js</Code> and save to reload.
-            </Text>
-            <Link
-              color="teal.500"
-              href="https://chakra-ui.com"
-              fontSize="2xl"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learn Chakra
-            </Link>
-          </VStack>
-        </Grid>
-      </Box> */}
+      {/* <ColorModeSwitcher justifySelf="flex-end" /> */}
     </ChakraProvider>
   );
 }

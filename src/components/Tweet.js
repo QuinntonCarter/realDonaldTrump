@@ -16,12 +16,19 @@ import {
   theme,
 } from '@chakra-ui/react';
 
-export default function Tweet({ name, handle, postDate, textContent }) {
+export default function Tweet({
+  src = 'https://pbs.twimg.com/profile_images/874276197357596672/kUuht00m_400x400.jpg',
+  name = 'Donald J. Trump',
+  handle = 'realDonaldTrump',
+  postDate,
+  textContent,
+}) {
   return (
     <>
       <SimpleGrid>
         <Box>
-          <Image src="avi.png" />
+          {/* add circle mask/edit size */}
+          <Image src={src} />
         </Box>
         <Box>
           <Flex>
