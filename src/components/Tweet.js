@@ -14,19 +14,18 @@ import {
   Link,
   SimpleGrid,
   Text,
-  theme,
 } from '@chakra-ui/react';
 
 export default function Tweet({
   src = 'https://pbs.twimg.com/profile_images/874276197357596672/kUuht00m_400x400.jpg',
   name = 'Donald J. Trump',
   handle = 'realDonaldTrump',
-  href,
+  href = false,
   postDate,
-  textContent,
+  value,
 }) {
   return (
-    <Link href={href}>
+    <Link href={href} _hover={{ textDecoration: 'none' }}>
       <SimpleGrid>
         <Box>
           {/* add circle mask/edit size */}
@@ -39,14 +38,28 @@ export default function Tweet({
               {name}
               <Text as="span">
                 {' '}
-                {handle} • {postDate}{' '}
+                {`@${handle}`} • {postDate}{' '}
               </Text>
             </Text>
           </Flex>
-          <Text as="p"> {textContent} </Text>
-          <SimpleGrid>
+          <Text as="p"> {value} </Text>
+          <SimpleGrid gridTemplateColumns={'repeat(5, 1fr)'}>
             {' '}
-            <Icon /> <Icon /> <Icon /> <Icon /> <Icon />{' '}
+            <Box as="span">
+              <Icon />
+            </Box>{' '}
+            <Box as="span">
+              <Icon />
+            </Box>{' '}
+            <Box as="span">
+              <Icon />
+            </Box>{' '}
+            <Box as="span">
+              <Icon />
+            </Box>{' '}
+            <Box as="span">
+              <Icon />
+            </Box>{' '}
           </SimpleGrid>
         </Box>
       </SimpleGrid>

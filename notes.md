@@ -1,4 +1,5 @@
 - theme bg edit to 000000
 
-later:
+### later:
+
 translate tweet into trump language via arrays of: + adverbs + adj + nouns + verbs
