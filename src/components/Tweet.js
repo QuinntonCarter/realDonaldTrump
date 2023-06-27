@@ -11,6 +11,7 @@ import {
   Flex,
   Icon,
   Image,
+  Link,
   SimpleGrid,
   Text,
   theme,
@@ -20,11 +21,12 @@ export default function Tweet({
   src = 'https://pbs.twimg.com/profile_images/874276197357596672/kUuht00m_400x400.jpg',
   name = 'Donald J. Trump',
   handle = 'realDonaldTrump',
+  href,
   postDate,
   textContent,
 }) {
   return (
-    <>
+    <Link href={href}>
       <SimpleGrid>
         <Box>
           {/* add circle mask/edit size */}
@@ -48,6 +50,6 @@ export default function Tweet({
           </SimpleGrid>
         </Box>
       </SimpleGrid>
-    </>
+    </Link>
   );
 }

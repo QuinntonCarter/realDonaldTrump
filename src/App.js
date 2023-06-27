@@ -7,7 +7,6 @@ import {
   VStack,
   Code,
   Grid,
-  theme,
   HStack,
   Icon,
   SimpleGrid,
@@ -15,24 +14,34 @@ import {
   Button,
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
+import { customTheme } from './Theme';
 import Tweet from './components/Tweet';
+// icons
 import { FaTwitter } from 'react-icons/fa';
+import { GrLocation } from 'react-icons/gr';
 
 function App() {
   const [quotes, setQuotes] = useState();
   async function getData() {
+    let quoteArr = [];
     try {
-      const data = await fetch(
-        'https://api.whatdoestrumpthink.com/api/v1/quotes'
-      );
-      // make mappable *
-      const toJSON = await data.json();
-      setQuotes(toJSON);
-      return true;
+      while (quoteArr.length <= 6) {
+        const data = await fetch('https://api.tronalddump.io/random/quote');
+        // make mappable *
+        const toJSON = await data.json();
+        quoteArr.push(toJSON);
+      }
+      return setQuotes(quoteArr);
     } catch {
       return false;
     }
   }
+  const mappedTweets =
+    quotes?.length >= 6
+      ? quotes.map(tweetData => {
+          return <Tweet textContent={tweetData.value} />;
+        })
+      : null;
   useEffect(() => {
     getData();
     return () => {
@@ -40,7 +49,7 @@ function App() {
     };
   }, []);
   return (
-    <ChakraProvider theme={theme}>
+    <ChakraProvider theme={customTheme}>
       <HStack>
         {/* maybe vstack (?) */}
         <VStack>
@@ -69,16 +78,20 @@ function App() {
             {/* twitter name */}
             {/* twitter handle */}
             {/* twitter bio */}
+            <Text> 45th President of the United States of America🇺🇸 </Text>
             {/* flex horizontal bar of: */}
             {/*  */}
             {/* pin icon + location */}
+            <Icon src={GrLocation} color={'rgb(113, 118, 123)'}></Icon>
             {/* link to website (maybe API sites) */}
             {/* join date */}
             {/*  */}
+
             {/* grid horizontal bar */}
             {/* following count */}
             {/* follower count */}
             {/*  */}
+
             {/* grid horizontal bar */}
             {/* tweets */}
             {/* media: links to meme/stupid videos */}
@@ -87,9 +100,8 @@ function App() {
           </Box>
           <SimpleGrid>
             {/* map info to tweet component(s) */}
-            <Tweet
-              textContent={quotes?.messages && quotes.messages.non_personalized}
-            />
+            {/* <Tweet textContent={quotes?.length && quotes.value} /> */}
+            {mappedTweets}
           </SimpleGrid>
         </VStack>
         <VStack>
