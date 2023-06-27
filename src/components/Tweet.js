@@ -15,14 +15,15 @@ import {
   SimpleGrid,
   Text,
 } from '@chakra-ui/react';
+import NameVerified from './NameVerified';
 
 export default function Tweet({
   src = 'https://pbs.twimg.com/profile_images/874276197357596672/kUuht00m_400x400.jpg',
-  name = 'Donald J. Trump',
   handle = 'realDonaldTrump',
   href = false,
   postDate,
   value,
+  overlayMode = false,
 }) {
   return (
     <Link href={href} _hover={{ textDecoration: 'none' }}>
@@ -32,14 +33,11 @@ export default function Tweet({
           <Image src={src} />
         </Box>
         <Box>
-          <Flex>
-            <Text>
+          <Flex flexDir={'column'}>
+            <NameVerified />
+            <Text as="span" display={'inline-flex'}>
               {' '}
-              {name}
-              <Text as="span">
-                {' '}
-                {`@${handle}`} • {postDate}{' '}
-              </Text>
+              {`@${handle}`} • {postDate}{' '}
             </Text>
           </Flex>
           <Text as="p"> {value} </Text>
