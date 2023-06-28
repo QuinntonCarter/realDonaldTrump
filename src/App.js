@@ -9,20 +9,31 @@ import {
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { customTheme } from './Theme';
 import Tweet from './components/Tweet';
-// icons
-import Banner from './components/Banner';
+import Banner from './components/bannerComponents/Banner';
 import TwitterHeading from './components/TwitterHeading';
 import MediaGrid from './components/MediaGrid';
+import LinkSidebar from './components/LinkSidebar';
 import { media } from './utils/mediaGrid/Media';
 import getData from './utils/getData';
 import { convertDate } from './utils/convertDate';
-import LinkSidebar from './components/LinkSidebar';
 
 function App() {
   const [quotes, setQuotes] = useState();
+  const sortedQuotes =
+    quotes &&
+    quotes.sort((a, b) => {
+      if (a.appeared_at > b.appeared_at) {
+        return -1;
+      }
+      if (a.appeared_at < b.appeared_at) {
+        return 1;
+      }
+      return 0;
+    });
+
   const mappedTweets =
-    quotes?.length === 6 ? (
-      quotes.map((tweetData, i) => {
+    sortedQuotes?.length === 6 ? (
+      sortedQuotes.map(tweetData => {
         return (
           <Tweet
             {...tweetData}
@@ -44,9 +55,9 @@ function App() {
   return (
     <ChakraProvider theme={customTheme}>
       <Container m={'auto 8em'} width={'100%'}>
-        <SimpleGrid gridTemplateColumns={'25% 60% 20%'}>
+        <SimpleGrid gridTemplateColumns={'20vw 50vw 25vw'}>
           <LinkSidebar />
-          <VStack>
+          <VStack width={'50vw'}>
             <TwitterHeading />
             <Banner
               bannerImg={
